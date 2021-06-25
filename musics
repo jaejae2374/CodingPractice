@@ -1,0 +1,43 @@
+def solution(genres, plays):
+    
+    musics = {}
+    max_music = {}
+    cnt = len(genres)
+    
+    for i in range(cnt) : 
+        if not genres[i] in musics :
+            musics[genres[i]] = plays[i]
+            max_music[genres[i]] = [i]
+        else : 
+            musics[genres[i]] += plays[i]
+            if len(max_music[genres[i]]) > 1 :
+                if plays[i] > plays[max_music[genres[i]][0]] :
+                    max_music[genres[i]][1] = max_music[genres[i]][0]
+                    max_music[genres[i]][0] = i
+                elif plays[i] > plays[max_music[genres[i]][1]] :
+                    max_music[genres[i]][1] = i
+                else :
+                    pass
+            else :
+                if plays[i] > plays[max_music[genres[i]][0]] :
+                    max_music[genres[i]].insert(0, i)
+                else : 
+                    max_music[genres[i]].append(i)
+                
+            
+    musics = sorted(musics.items(), reverse=True, key = lambda x : x[1])
+    answer = []
+ 
+    for j in musics : 
+        genre = j[0]
+        
+        if len(max_music[genre]) > 1 :
+            first_idx = max_music[genre][0]
+            second_idx = max_music[genre][1]
+            answer.append(first_idx)
+            answer.append(second_idx)
+        else : 
+            first_idx = max_music[genre][0]
+            answer.append(first_idx)
+            
+    return answer
