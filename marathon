@@ -1,0 +1,39 @@
+#1
+def solution(participant, completion):
+
+    dict_a = {}
+    
+    for i in participant :
+        isExist = False
+        try :
+            idx = completion.index(i)
+        except :
+            isSuccess = "false"
+        else : 
+            isSuccess = "true"
+            isExist = True
+        
+        dict_a[i] = []
+        dict_a[i].append(isSuccess)
+        if isExist :
+            del completion[idx]
+                
+    for i in dict_a :
+        if "false" in dict_a[i] :
+            answer = i
+            return answer
+            
+#2
+def solution(participant, completion):
+    
+    participant.sort()
+    completion.sort()
+    
+    while completion :
+        if participant[0] != completion[0] :
+            return participant[0]
+        participant.pop(0)
+        completion.pop(0)
+
+    return participant[0]
+            
