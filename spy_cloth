@@ -1,0 +1,15 @@
+def solution(clothes):
+    
+    closet = {}
+    for cloth in clothes :
+        
+        if not cloth[1] in closet :
+            closet[cloth[1]] = 1
+        else : 
+            closet[cloth[1]] += 1
+    
+    sum = 1
+    for i in closet :
+        sum *= (closet[i]+1)
+        
+    return (sum-1)
