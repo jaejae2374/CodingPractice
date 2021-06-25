@@ -1,0 +1,16 @@
+def solution(phone_book):
+    
+    length = len(phone_book)
+    for i in range(length) :
+        if i==0 : continue
+        
+        cnt = i-1
+        while cnt>=0 :
+            if len(phone_book[i]) >= len(phone_book[cnt]) :
+                if phone_book[i][:len(phone_book[cnt])] == phone_book[cnt] :
+                    return False
+            else :
+                if phone_book[cnt][:len(phone_book[i])] == phone_book[i] :
+                    return False
+            cnt-=1
+    return True
