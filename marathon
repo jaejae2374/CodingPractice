@@ -1,4 +1,16 @@
 #1
+import collections
+
+def solution(participant, completion):
+    
+    answer = collections.Counter(participant) - collections.Counter(completion)
+    
+    return list(answer.keys())[0]
+
+
+
+
+#2
 def solution(participant, completion):
 
     dict_a = {}
@@ -23,7 +35,7 @@ def solution(participant, completion):
             answer = i
             return answer
             
-#2
+#3
 def solution(participant, completion):
     
     participant.sort()
@@ -36,4 +48,6 @@ def solution(participant, completion):
         completion.pop(0)
 
     return participant[0]
+    
+    
             
