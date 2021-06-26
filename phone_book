@@ -1,3 +1,4 @@
+#1
 def solution(phone_book):
     
     length = len(phone_book)
@@ -13,4 +14,19 @@ def solution(phone_book):
                 if phone_book[cnt][:len(phone_book[i])] == phone_book[i] :
                     return False
             cnt-=1
+    return True
+    
+    
+    
+   #2 
+   def solution(phone_book):
+    
+    phone_book.sort(key = lambda x : len(x))
+    
+    length = len(phone_book)
+    for i in range(length-1) :
+        for j in range(i+1, length) :
+            if phone_book[j].startswith(phone_book[i]) :
+                return False
+    
     return True
