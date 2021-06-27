@@ -1,0 +1,23 @@
+def solution(priorities, location):
+    
+    order=0
+    idx = location
+    
+    while True :
+        if len(priorities) > 1 :
+            if priorities[0] >= max(priorities[1:]) :
+                del priorities[0]
+                order+=1
+                if idx == 0 : break
+                else : idx-=1
+            else : 
+                priorities.append(priorities[0])
+                del priorities[0]
+                if idx == 0 : idx = len(priorities)-1
+                else : idx-=1
+        else : 
+            del priorities[0]
+            order+=1
+            break
+    
+    return order
