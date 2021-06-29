@@ -1,23 +1,18 @@
-#1
+import heapq
+
 def solution(scoville, K):
     
-    scoville.sort()
+    heapq.heapify(scoville)
     cnt = 0
+    while scoville[0] < K :
+        first = heapq.heappop(scoville)
+        second = heapq.heappop(scoville)
+        new_scoville = first + (second * 2)
+        heapq.heappush(scoville, new_scoville)
+        cnt += 1
+        if len(scoville) == 1 : break
     
-    while True :
-        try : 
-            if scoville[0] < K :
-                scoville[0] = scoville[0] + (scoville[1]*2)
-                del scoville[1]
-                cnt+=1
-                isContinued = False
-                scoville.sort()
-            else :
-                if isContinued : break
-                isContinued = True
-                
-                
-        except :
-            return -1
+    if cnt != 0 and scoville[0] < K : return -1
+    else : return cnt
         
-    return cnt
+        
