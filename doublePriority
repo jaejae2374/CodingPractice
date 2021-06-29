@@ -1,0 +1,26 @@
+import heapq as hq
+
+def solution(operations):
+    heap = []
+    
+    for op in operations :
+        operator, operand = op.split(" ")
+        operand = int(operand)
+        if operator == "I" :
+            hq.heappush(heap, operand)
+            
+        else : 
+            if len(heap) == 0 : continue
+                
+            if operand == 1 :
+                max_value = hq.nlargest(1, heap)[0]
+                heap.remove(max_value)
+                
+            else : 
+                min_value = hq.nsmallest(1, heap)[0]
+                heap.remove(min_value)
+                
+    if len(heap) == 0 : return [0,0]
+    else : return [hq.nlargest(1, heap)[0], hq.nsmallest(1, heap)[0]]
+        
+            
