@@ -1,0 +1,14 @@
+def solution(brown, yellow):
+    
+    cases = []
+    for i in range(yellow, 0, -1) :
+        if yellow % i == 0 :
+            if (yellow // i) <= i :
+                cases.append((i, yellow//i))
+            else :
+                break
+    for c in cases :
+        if (c[0]+2)*2 + c[1]*2 == brown :
+            c = list(c)
+            c[0] += 2; c[1] += 2
+            return c
