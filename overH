@@ -1,0 +1,15 @@
+def solution(citations):
+    
+    mean_value = int(sum(citations)/len(citations))
+    tmp = False
+    while True :
+        overH = list(filter(lambda x : x>=mean_value, citations))
+        if len(overH) == mean_value : 
+            return mean_value
+        elif len(overH) > mean_value : 
+            mean_value+=1
+            if tmp :
+                return mean_value-1
+        elif len(overH) < mean_value : 
+            mean_value-=1
+            tmp = True
