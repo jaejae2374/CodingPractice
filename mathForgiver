@@ -1,0 +1,20 @@
+from collections import Counter
+
+def solution(answers):
+    
+    num = len(answers)
+    first = [1,2,3,4,5] * (num//5) + [1,2,3,4,5][:num%5]
+    second = [2,1,2,3,2,4,2,5] * (num//8) + [2,1,2,3,2,4,2,5][:num%8]
+    third = [3,3,1,1,2,2,4,4,5,5] * (num//10) + [3,3,1,1,2,2,4,4,5,5][:num%10]
+      
+    first_result = Counter(list(map(lambda x, y : x-y, answers, first)))[0]
+    second_result = Counter(list(map(lambda x, y : x-y, answers, second)))[0]
+    third_result = Counter(list(map(lambda x, y : x-y, answers, third)))[0]
+    
+    tmp = max([first_result, second_result, third_result])
+    answer = []
+    if first_result == tmp : answer.append(1)
+    if second_result == tmp : answer.append(2)
+    if third_result == tmp : answer.append(3)
+    
+    return answer
