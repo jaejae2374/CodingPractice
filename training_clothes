@@ -1,0 +1,18 @@
+from collections import Counter
+
+def solution(n, lost, reserve):
+    
+    reserve = Counter(reserve)
+    lost_students = []
+    
+    for student in lost : 
+        if reserve[student] == 1 :
+            reserve[student]-=1
+        elif student != 1 and reserve[student-1] == 1 :
+            reserve[student-1] -= 1
+        elif student != n and reserve[student+1] == 1 and student+1 not in lost :
+            reserve[student+1] -= 1
+        else : lost_students.append(student)
+    
+    answer = n-len(lost_students)
+    return answer
