@@ -1,0 +1,20 @@
+def solution(n, costs):
+
+    # 프림 알고리즘
+    mst = []
+    visited = [0]*n
+    start = costs[0][0]
+    visited[start] = 1
+    mst.append(start)
+    answer = 0
+    while (0 in visited) :
+        visit_lists = list(filter(lambda x : (x[0] in mst and visited[x[1]]==0) or (x[1] in mst and visited[x[0]]==0), costs))
+        visit_lists = sorted(visit_lists, key=lambda x : x[2])
+        if visit_lists[0][0] not in mst : 
+            mst.append(visit_lists[0][0])
+            visited[visit_lists[0][0]] = 1
+        else :
+            mst.append(visit_lists[0][1])
+            visited[visit_lists[0][1]] = 1
+        answer += visit_lists[0][2]
+    return answer
