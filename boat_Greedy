@@ -4,26 +4,23 @@ def solution(people, limit):
     people = deque(people)
     people = sorted(people)
     cnt = 0
+    idx=len(people)-1
+    start = 0
     while people :
-        boat = 0
-        heavy = people.pop(0)
-        boat += heavy
-        idx=len(people)-1
-        
-        while people :
-            
-            if idx == -1 : break
-                
-            another = people[idx]
-            
-            if boat + another <= limit :
-                boat+=another
-                people.pop(idx)
-                break
-            else : 
-                idx-=1
-                
-        if boat > 0 :
+        if idx == start : 
             cnt+=1
-    
+            break
+        elif idx < start : 
+            break
+        boat = 0
+        light = people[start]
+        boat += light
+        if boat + people[idx] <= limit :
+            start += 1 
+            idx-=1
+            cnt+=1
+        else : 
+            idx-=1
+            cnt+=1
+            
     return cnt
