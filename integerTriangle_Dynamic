@@ -1,0 +1,12 @@
+def maxSum(parent, idx, triangle) :
+    
+    left = parent
+    right = parent+1
+    
+    if idx == len(triangle) : return 0
+    
+    return triangle[idx][parent] + max(maxSum(left, idx+1, triangle), maxSum(right, idx+1, triangle))
+
+def solution(triangle):
+    
+    return maxSum(0, 0, triangle)
