@@ -1,0 +1,14 @@
+def findPath(desX, desY, puddles) : 
+    
+    if desX < 1 or (desX, desY) in puddles : return 0
+    elif desY < 1 or (desX, desY) in puddles : return 0
+    elif desX == 1 and desY == 1 : return 1
+    
+    return (findPath(desX-1, desY, puddles) + findPath(desX, desY-1, puddles))%1000000007
+
+def solution(m, n, puddles):
+    
+    puddles = list(map(tuple, puddles))
+    puddles = set(puddles)
+    
+    return findPath(m, n, puddles)
