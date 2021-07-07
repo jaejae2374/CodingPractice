@@ -1,0 +1,24 @@
+def solution(numbers, target):
+    
+    answer = 0    
+    cnt = len(numbers)
+    numberOfCase = 2**cnt
+    
+    cases=[]
+    for i in range(numberOfCase) :
+        n = bin(i)
+        tmp = "0"*(cnt-len(n[2:]))+n[2:]
+        cases.append(tmp)
+
+    for case in cases :
+        sum=0
+        for idx in range(cnt) :
+            if case[idx] == "1" :
+                sum += numbers[idx]
+            else :
+                sum -= numbers[idx]
+        if sum == target : 
+            answer+=1
+    
+
+    return answer
