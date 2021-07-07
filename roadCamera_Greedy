@@ -1,0 +1,10 @@
+def solution(routes):
+    answer=0
+    routes = sorted(routes, key=lambda x : x[1])
+    
+    camera = -30001
+    for car in routes :
+        if camera < car[0] :
+            answer+=1
+            camera = car[1]
+    return answer
