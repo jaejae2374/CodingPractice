@@ -1,0 +1,22 @@
+def solution(n, computers):
+    
+    answer = 0
+    isConsidered = [0]*n
+    
+    while 0 in isConsidered :
+        idx = isConsidered.index(0)
+        BFS=[]
+        BFS.append(idx)
+        isConsidered[idx] = 1
+        while BFS :
+            for i in range(len(computers[BFS[0]])) :
+                if i == BFS[0] : continue
+                else :
+                    if computers[BFS[0]][i] == 1 and isConsidered[i] == 0 :
+                        BFS.append(i)
+                        isConsidered[i] = 1
+                    else : pass
+            BFS.pop(0)
+        answer+=1
+    
+    return answer
