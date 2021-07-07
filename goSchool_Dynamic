@@ -4,11 +4,17 @@ def findPath(desX, desY, puddles) :
     elif desY < 1 or (desX, desY) in puddles : return 0
     elif desX == 1 and desY == 1 : return 1
     
-    return (findPath(desX-1, desY, puddles) + findPath(desX, desY-1, puddles))%1000000007
+    if pathes[desY-1][desX-1] == -1 :
+        pathes[desY-1][desX-1] = (findPath(desX-1, desY, puddles) + findPath(desX, desY-1, puddles))%1000000007
+                                                                    
+    return pathes[desY-1][desX-1]
+    
 
 def solution(m, n, puddles):
     
     puddles = list(map(tuple, puddles))
     puddles = set(puddles)
+    global pathes 
+    pathes = [[-1]*m for i in range(n)]
     
     return findPath(m, n, puddles)
