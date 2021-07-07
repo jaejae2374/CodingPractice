@@ -22,3 +22,6 @@ def solution(numbers, target):
     
 
     return answer
+    
+    
+#재귀로도 풀어보기 !!
