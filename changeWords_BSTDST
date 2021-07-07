@@ -1,0 +1,43 @@
+from collections import deque
+
+def check(word1, word2) :
+    cnt = []
+    for idx in range(len(word1)) :
+        if word1[idx] != word2[idx] :
+            cnt.append(word1[idx])
+    return len(cnt)
+
+
+def solution(begin, target, words):
+    
+    answer = check(begin, target)
+    DFS = deque()
+    DFS.appendleft(begin)
+    isVisited={}
+    for word in words :
+        isVisited[word] = 0
+        
+    while DFS[0] != target :
+        
+        if len(DFS)-1 >= answer :
+            DFS.popleft()
+            
+        for word in words :
+            if check(DFS[0], word) == 1 and isVisited[word] == 0 :
+                DFS.appendleft(word)
+                isVisited[word] = 1
+                break
+        else : 
+            DFS.popleft()
+            
+        if (0 not in isVisited.values()) or (len(DFS) == 0) :
+            answer+=1
+            DFS = deque()
+            DFS.appendleft(begin)
+            isVisited={}
+            for word in words :
+                isVisited[word] = 0
+                
+        if answer > len(words) : return 0
+        
+    return answer
