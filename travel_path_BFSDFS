@@ -1,0 +1,47 @@
+from collections import deque
+
+class Ticket :
+    
+    def __init__(self, start, end) :
+        self.start = start
+        self.end = end
+
+def solution(tickets):
+    answer=[]
+    
+    tickets = sorted(tickets, key=lambda x : x[1])
+    tickets = list(map(lambda x : Ticket(x[0],x[1]), tickets))
+    DFS = deque()
+    isUsed = {}
+    for ticket in tickets :
+        isUsed[ticket] = 0
+    DFS.appendleft("ICN")
+    while (0 in isUsed.values()) :
+        for t in tickets :
+            if t.start == DFS[0] and isUsed[t] == 0 :
+                DFS.appendleft(t.end)
+                isUsed[t] = 1
+                answer.append(t)
+                break
+        else :
+            while True :
+                dest = DFS.popleft()
+                before_ticket = answer[-1]
+                for t in tickets :
+                    if t.start == DFS[0] and isUsed[t] == 0 :
+                        DFS.appendleft(t.end)
+                        isUsed[t] = 1
+                        answer[-1] = t
+                        isUsed[before_ticket] = 0 
+                        break
+                else : 
+                    isUsed[before_ticket] = 0 
+                    answer.pop()
+                    continue  
+                break
+            
+    final_country =  answer[-1].end
+    for i in range(len(answer)) :
+        answer[i] = answer[i].start
+    answer.append(final_country)
+    return answer
