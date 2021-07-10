@@ -38,3 +38,31 @@ min_distance = 1
             
     return min_distance
     
+    
+    #2 
+    points = rocks.copy()
+    heapq.heapify(points)
+    heapq.heappush(points, 0)
+    heapq.heappush(points, distance)
+    
+    distances = []
+    while len(points) != 1 :
+        distances.append(-heapq.heappop(points)+points[0])
+    
+    min_distances = []
+    for i, d in enumerate(distances) :
+        #heapq.heappush(min_distances,(d,i))
+        min_distances.append((d,i))
+    
+    removable_rocks = n
+    min_distances = sorted(min_distances, key=lambda x : x[0])
+    while removable_rocks :
+        #idx = heapq.heappop(min_distances)[1]
+        idx = min_distances.pop(0)[1]
+        distances[idx+1] += distances[idx]
+        distances[idx] = 1000000001
+        removable_rocks-=1
+
+        
+    return min(distances)
+    
