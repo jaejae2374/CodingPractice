@@ -1,0 +1,25 @@
+from collections import defaultdict
+
+def solution(n, edge):
+    distance = defaultdict(set)
+    distance[0].add(1)
+    dist = 1
+    while edge :
+        idx = 0
+        while True :
+            if idx >= len(edge) : break
+            v = edge[idx]
+            if v[0] in distance[dist-1] and v[1] not in distance[dist-1]:
+                distance[dist].add(v[1])
+                del edge[idx]
+            elif v[1] in distance[dist-1] and v[0] not in distance[dist-1]:
+                distance[dist].add(v[0])
+                del edge[idx]
+            elif v[0] in distance[dist-1] and v[1] in distance[dist-1] :
+                del edge[idx]
+            else : idx+=1
+        dist+=1
+        if dist >= n : break 
+    
+    distance = list(sorted(distance.items(), key=lambda x:x[0]))
+    return len(distance[-1][1])
