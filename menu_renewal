@@ -1,0 +1,38 @@
+from collections import Counter
+from itertools import combinations
+
+def solution(orders, course):
+    
+    cnt = Counter()
+    answer = dict()
+    
+    for nums in course : 
+        answer[nums] = [("tmp",1)]
+    
+    for idx in range(len(orders)) :
+        
+        tmp = list(orders[idx])
+        tmp.sort()
+        
+        words = []
+        for i in range(2, len(tmp)+1) : 
+            a = list(combinations(tmp,i))
+            words.extend(a)
+
+        for word in words :
+            cnt["".join(word)] += 1
+            
+    for c in cnt :
+        if cnt[c] > 1 and len(c) in course :
+            if answer[len(c)][0][1] < cnt[c] :
+                answer[len(c)] = [(c,cnt[c])]
+            elif answer[len(c)][0][1] == cnt[c] :
+                answer[len(c)].append((c,cnt[c]))
+    result = []
+    for x in answer.values() :
+        if x[0][0] != "tmp" :
+            for y in x :
+                result.append(y[0])
+    result.sort()
+
+    return result
