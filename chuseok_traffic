@@ -1,0 +1,41 @@
+from datetime import datetime, timedelta
+from math import floor
+
+def solution(lines):
+    
+    times = list(map(lambda x : (datetime.strptime(x[:23], "%Y-%m-%d %H:%M:%S.%f")-timedelta(milliseconds=floor(float(x[24:].replace("s", ""))*1000)-1), datetime.strptime(x[:23], "%Y-%m-%d %H:%M:%S.%f")), lines))
+    
+    answer = 0
+    t = 0
+    times.reverse()
+    end = times[t][1]
+    start = end - timedelta(seconds=1) + timedelta(milliseconds=1)
+    isFinished = False
+    
+    while not isFinished :
+    
+        cnt = 0
+        idx = 0
+        
+        while True :
+        
+            if idx >= len(times) : 
+                answer = max(answer, cnt)
+                isFinished = True
+                break
+            
+            if times[idx][0] <= end and times[idx][1] >= start :
+                cnt+=1
+                idx+=1
+                
+            elif times[idx][0] >= end :
+                times.pop(idx)
+                
+            else : 
+                answer = max(answer, cnt)
+                t = idx
+                start = times[t][1]
+                end = start + timedelta(seconds=1) - timedelta(milliseconds=1)
+                break
+        
+    return answer
