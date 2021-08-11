@@ -1,0 +1,57 @@
+from itertools import permutations
+
+def solution(expression):
+    
+    result = 0
+    
+    for i in permutations(['*', '+', '-'], 3) :
+        order = {}
+        first, second, third = i
+        order[first] = 1
+        order[second] = 2
+        order[third] = 3
+        
+        tmp = ""
+        operands = []
+        operators = []
+        for e in expression :
+            if e.isdigit():
+                tmp+=e
+            else :
+                operands.append(tmp)
+                tmp = ""
+                if not operators : 
+                    operators.append(e)
+                else :
+                    if order[operators[-1]] <= order[e] :
+                        
+                        while order[operators[-1]] <= order[e] :
+                            value2 = operands.pop()
+                            value1 = operands.pop()
+                            op = operators.pop()
+                            new_value = str(eval(value1+op+value2))
+                            operands.append(new_value)
+                            if not operators : break
+                                
+                        operators.append(e)
+                    
+                    else :
+                        operators.append(e)
+                        
+        operands.append(tmp)
+        while operators :
+            value2 = operands.pop()
+            value1 = operands.pop()
+            op = operators.pop()
+            new_value = str(eval(value1+op+value2))
+            operands.append(new_value)
+        
+        new_result = abs(int(operands[0]))
+        
+        if result < new_result : result = new_result
+            
+    return result
+        
+            
+        
+    
