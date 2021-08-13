@@ -1,0 +1,29 @@
+def solution(N, road, K):
+    #BFS 방식이되, 짧은 거리부터 pop!
+    distance = {}
+    cities = []
+    
+    distance[1] = 0
+    cities.append(1)
+    
+    while cities:
+        cities = sorted(cities, key=lambda x: distance[x])
+        start = cities.pop(0)
+        next_cities = list(filter(lambda x: start == x[0] or start == x[1], road))
+        
+        for city in next_cities :
+            road.remove(city)
+            if city[0] == start : next_city = city[1]
+            else : next_city = city[0]
+                
+            if next_city in distance:
+                distance[next_city] = min(distance[start] + city[2], distance[next_city])
+            else :
+                distance[next_city] = distance[start] + city[2]
+                
+            if next_city not in cities : cities.append(next_city)
+                
+    
+    possible_cities = list(filter(lambda x: distance[x]<=K, distance.keys()))
+
+    return len(possible_cities)
